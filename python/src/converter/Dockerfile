@@ -1,4 +1,4 @@
-﻿FROM python:3.10-slim-bullseye
+﻿FROM python:3.12-slim-bullseye
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends --no-install-suggests \
@@ -6,7 +6,7 @@ RUN apt-get update \
   && pip install --no-cache-dir --upgrade pip
 
 WORKDIR /app
-COPY ./requirements.text /app
+COPY ./requirements.txt /app
 RUN pip install --no-cache-dir --requirement /app/requirements.txt
 COPY . /app
 
