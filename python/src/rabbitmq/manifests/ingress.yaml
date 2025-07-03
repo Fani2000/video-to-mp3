@@ -2,12 +2,14 @@
 kind: Ingress
 metadata:
   name: rabbitmq-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - host: rabbitmq-manager.com
+    - host: localhost
       http:
         paths:
-          - path: /
+          - path: /rabbitmq
             pathType: Prefix
             backend:
               service:

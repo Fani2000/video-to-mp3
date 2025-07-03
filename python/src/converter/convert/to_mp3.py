@@ -1,6 +1,13 @@
 ﻿import pika, json, tempfile, os
 from bson.objectid import ObjectId
-import moviepy.editor
+
+# Updated import for moviepy
+try:
+    from moviepy.editor import VideoFileClip
+except ImportError:
+    # Alternative import approach if the first one fails
+    import moviepy
+    from moviepy.video.io.VideoFileClip import VideoFileClip
 
 
 def start(message, fs_videos, fs_mp3s, channel):
@@ -13,7 +20,8 @@ def start(message, fs_videos, fs_mp3s, channel):
     # add video contents to empty file
     tf.write(out.read())
     # create audio from temp video file
-    audio = moviepy.editor.VideoFileClip(tf.name).audio
+    # Updated to use the imported VideoFileClip directly
+    audio = VideoFileClip(tf.name).audio
     tf.close()
 
     # write audio to the file
